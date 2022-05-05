@@ -2,7 +2,7 @@ package entity
 
 import kotlin.random.Random
 
-class Deck( cards:List<SchwimmenCard> = emptyList(),private val random: Random = Random ){
+class Deck(cards:List<SchwimmenCard> = emptyList(),private val random: Random = Random ){
     private val cards: ArrayDeque<SchwimmenCard> = ArrayDeque(32);
 
     /**
