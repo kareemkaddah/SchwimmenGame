@@ -2,9 +2,16 @@ package entity
 
 import kotlin.random.Random
 
-class Deck(cards:List<SchwimmenCard> = emptyList(),private val random: Random = Random ){
-    private val cards: ArrayDeque<SchwimmenCard> = ArrayDeque(32);
+class Deck( pCards:ArrayDeque<SchwimmenCard>,private val random: Random = Random ){
+    val cards:ArrayDeque<SchwimmenCard>
 
+    init {
+        if(pCards.size==32){
+            cards = pCards;
+        }else{
+            throw IllegalArgumentException("cards size has to be exactly 32");
+        }
+    }
     /**
      * the amount of cards in this stack
      */

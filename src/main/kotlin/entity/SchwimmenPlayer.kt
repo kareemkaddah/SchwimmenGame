@@ -8,14 +8,19 @@ package entity
  *
  */
 class SchwimmenPlayer (private val playerName: String,private val position:Int, private val hasKnocked:Boolean){
-    private val dealtHandCards: ArrayDeque<SchwimmenCard> = ArrayDeque(3)
-    val DealtHandCards: ArrayDeque<SchwimmenCard> get() = dealtHandCards
 
-   /* public fun checkHandScore():Double{
+    fun checkHandScore(): Double {
 
-    }*/
+    }
 
-    public fun hasKnocked():Boolean{
+
+    fun hasKnocked():Boolean{
+
+        
         return hasKnocked
     }
+
+    var dealtHandCards:List<SchwimmenCard> = listOf<SchwimmenCard>()
+    get() = field
+    set(value) {dealtHandCards= value}
 }

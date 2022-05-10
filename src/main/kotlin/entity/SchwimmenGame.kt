@@ -1,18 +1,23 @@
 package entity
 
-class SchwimmenGame(val passCounter: Int=0, val gameLoop: Boolean, var tableCards:MutableList<SchwimmenCard>)
+class SchwimmenGame(var passCounter: Int=0, val gameLoop: Boolean,var deckCards: Deck, var Players:ArrayDeque<SchwimmenPlayer>)
 {
-   private var players: ArrayDeque<SchwimmenPlayer> = ArrayDeque(4)
 
-   val deckCards: ArrayDeque<SchwimmenCard> get() = deckCards
+   var currentPlayer:SchwimmenPlayer?= null
+   get() = field
+   set(value) {currentPlayer = value}
 
-
-   private var currentPlayer:SchwimmenPlayer?= null
-
-   public fun setPlayers(newPlayer:ArrayDeque<SchwimmenPlayer>){
-      players=newPlayer
+    var tableCards:List<SchwimmenCard>;
+   init{
+      tableCards=deckCards.extractThreeCards();
+      for(player in Players){
+         player.dealtHandCards = deckCards.extractThreeCards()
+      }
    }
 
+   fun incrementPassCounter(){
+      passCounter++
+   }
 
 
 }
