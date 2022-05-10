@@ -7,7 +7,7 @@ package entity
  * @param DealtHandCards gibt die hand karten in einem array
  *
  */
-class SchwimmenPlayer (private val playerName: String,private val position:Int, private val hasKnocked:Boolean,public var handCards :MutableList<SchwimmenCard>){
+class SchwimmenPlayer (private val playerName: String,private val position:Int, private var hasKnocked:Boolean,public var handCards :MutableList<SchwimmenCard>){
 
     fun checkHandScore(): Double {
         val clubsGroup = mutableListOf<SchwimmenCard>()
@@ -72,7 +72,12 @@ class SchwimmenPlayer (private val playerName: String,private val position:Int, 
         return hasKnocked
     }
 
-    var dealtHandCards:List<SchwimmenCard> = listOf<SchwimmenCard>()
+    fun didKnock(){
+        hasKnocked=true
+    }
+
+
+    var dealtHandCards:MutableList<SchwimmenCard> = mutableListOf<SchwimmenCard>()
     get() = field
     set(value) {dealtHandCards= value}
 }

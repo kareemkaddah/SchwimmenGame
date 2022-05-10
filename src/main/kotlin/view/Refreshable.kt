@@ -3,4 +3,6 @@
 
 interface Refreshable {
 
+     fun refreshAfterTurn()
+
 }

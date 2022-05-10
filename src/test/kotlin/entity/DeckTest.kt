@@ -10,6 +10,7 @@ class DeckTest {
     private fun createCards(): ArrayDeque<SchwimmenCard> {
         val deck = ArrayDeque<SchwimmenCard>();
         for (index in 0..31) {
+
             deck.addFirst(
                 SchwimmenCard(
                     CardSuit.values()[index / 8],

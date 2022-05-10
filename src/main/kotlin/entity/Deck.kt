@@ -39,9 +39,9 @@ class Deck( pCards:ArrayDeque<SchwimmenCard>,private val random: Random = Random
         cards.addFirst(card)
     }
 
-    fun extractThreeCards(): List<SchwimmenCard> {
+    fun extractThreeCards(): MutableList<SchwimmenCard> {
         require ( 3 in 1..cards.size) { "can't draw 3 cards from $cards" }
-        return List(3) { cards.removeFirst() }
+        return MutableList(3) { cards.removeFirst() }
     }
 
 }

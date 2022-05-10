@@ -4,41 +4,69 @@ import entity.*
 
 class PlayerActionService (private val rootService: RootService): AbstractRefreshingService(){
 
-    fun knock(player: SchwimmenPlayer){
+    var currentGame=rootService.currentGame
+    val currentPlayer= currentGame?.currentPlayer
+
+
+    fun knock(){
         val game=rootService.currentGame
         checkNotNull(game)
-        knock(player)
+        currentPlayer?.didKnock()
+
+
     }
+
     fun changeOneCard(handCard:SchwimmenCard,tableCard:SchwimmenCard){
-        val game=rootService.currentGame
-        checkNotNull(game)
-        changeOneCard(handCard, tableCard)
-//        onAllRefreshables{refreshAfterTurn()}
+        checkNotNull(currentGame)
+       var playerCard= currentPlayer?.handCards
+
+        val indexOfChosenCard= playerCard?.indexOf(handCard)
+        val indexOfTableCard= currentGame?.tableCards!!.indexOf(tableCard)
+
+        if (indexOfChosenCard != null) {
+            playerCard?.set(indexOfChosenCard, tableCard)
+        };
+        currentGame?.tableCards!![indexOfTableCard]=handCard
+      onAllRefreshables{refreshAfterTurn()}
 
     }
+
+
     fun changeAllCards(){
-        val game= rootService.currentGame
-        checkNotNull(game)
-        var temp = game.currentPlayer?.dealtHandCards
-        game.currentPlayer?.dealtHandCards=game.tableCards
-        if (temp != null) {
-            game.tableCards = temp
+        checkNotNull(currentGame)
+        val tmp = currentPlayer?.dealtHandCards
+        currentPlayer?.dealtHandCards= currentGame!!.tableCards
+        if (tmp != null) {
+            currentGame!!.tableCards = tmp
         }
-//        onAllRefreshables{refreshAfterTurn()}
+     onAllRefreshables{refreshAfterTurn()}
 
     }
-//    fun pass(){
-//        val game=rootService.currentGame
-//        checkNotNull(game)
-//        if(game.passCounter== game.Players.size){
-//            if(game.cards.size>=3){
-//                game.tableCards=game.extractThreeCards()
-//                game.passCounter=0
-//                onAllRefreshables{refreshAfterTurn()}
-//            }
-//            else{
-//                GameService.endGame()
-//            }
-//        }
-//    }
+
+
+    fun pass(){
+        checkNotNull(currentGame)
+        currentGame!!.passCounter+=1;
+        onAllRefreshables{refreshAfterTurn()}
+    }
+
+    fun turn(t:Turn){
+        val playersSize= currentGame?.Players?.size
+        if(!currentGame?.gameActive!!) return;
+        if(currentPlayer?.hasKnocked() == true) {
+            currentGame!!.endGame()
+            return;
+
+        }
+        when(t){
+
+            Turn. CHANGE_ALL->changeAllCards();
+            Turn.KNOCK->knock();
+            Turn.PASS->pass();
+
+            else ->return;
+        }
+    }
+
+
 }
