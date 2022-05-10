@@ -1,7 +1,8 @@
 package service
 
+import Refreshable
 import entity.SchwimmenGame
-import view.Refreshable
+
 
 class RootService {
     val gameService=GameService(this)

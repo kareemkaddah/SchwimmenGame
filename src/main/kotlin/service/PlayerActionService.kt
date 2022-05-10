@@ -1,5 +1,5 @@
 package service
-
+import AbstractRefreshingService
 import entity.*
 
 class PlayerActionService (private val rootService: RootService): AbstractRefreshingService(){
@@ -13,7 +13,7 @@ class PlayerActionService (private val rootService: RootService): AbstractRefres
         val game=rootService.currentGame
         checkNotNull(game)
         changeOneCard(handCard, tableCard)
-        onAllRefreshables{refreshAfterTurn()}
+//        onAllRefreshables{refreshAfterTurn()}
 
     }
     fun changeAllCards(){
@@ -24,21 +24,21 @@ class PlayerActionService (private val rootService: RootService): AbstractRefres
         if (temp != null) {
             game.tableCards = temp
         }
-        onAllRefreshables{refreshAfterTurn()}
+//        onAllRefreshables{refreshAfterTurn()}
 
     }
-    fun pass(){
-        val game=rootService.currentGame
-        checkNotNull(game)
-        if(game.passCounter== game.Players.size){
-            if(game.cards.size>=3){
-                game.tableCards=game.extractThreeCards()
-                game.passCounter=0
-                onAllRefreshables{refreshAfterTurn()}
-            }
-            else{
-                GameService.endGame()
-            }
-        }
-    }
+//    fun pass(){
+//        val game=rootService.currentGame
+//        checkNotNull(game)
+//        if(game.passCounter== game.Players.size){
+//            if(game.cards.size>=3){
+//                game.tableCards=game.extractThreeCards()
+//                game.passCounter=0
+//                onAllRefreshables{refreshAfterTurn()}
+//            }
+//            else{
+//                GameService.endGame()
+//            }
+//        }
+//    }
 }

@@ -20,7 +20,7 @@ class Deck( pCards:ArrayDeque<SchwimmenCard>,private val random: Random = Random
     /**
      * Returns `true` if the stack is empty, `false` otherwise.
      */
-    val empty: Boolean get() = cards.isEmpty()
+    val isEmpty: Boolean get() = cards.isEmpty()
 
     /**
      * Shuffles the cards in this stack
