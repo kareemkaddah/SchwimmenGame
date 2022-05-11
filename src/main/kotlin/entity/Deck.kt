@@ -2,8 +2,8 @@ package entity
 
 import kotlin.random.Random
 
-class Deck( pCards:ArrayDeque<SchwimmenCard>,private val random: Random = Random ){
-    val cards:ArrayDeque<SchwimmenCard>
+class Deck( pCards:MutableList<SchwimmenCard>,private val random: Random = Random ){
+    val cards:MutableList<SchwimmenCard>
 
     init {
         if(pCards.size==32){
@@ -22,22 +22,24 @@ class Deck( pCards:ArrayDeque<SchwimmenCard>,private val random: Random = Random
      */
     val isEmpty: Boolean get() = cards.isEmpty()
 
-    /**
-     * Shuffles the cards in this stack
-     */
-    fun shuffle() {
-        cards.shuffle(random)
-    }
-    fun putOnTop(cards: List<SchwimmenCard>) {
-        cards.forEach(this.cards::addFirst)
-    }
 
-    /**
-     * puts the given card on top of this card stack
-     */
-    fun putOnTop(card: SchwimmenCard) {
-        cards.addFirst(card)
-    }
+//    TODO delete
+//    /**
+//     * Shuffles the cards in this stack
+//     */
+//    fun shuffle() {
+//        cards.shuffle(random)
+//    }
+//    fun putOnTop(cards: List<SchwimmenCard>) {
+//        cards.forEach(this.cards::addFirst)
+//    }
+//
+//    /**
+//     * puts the given card on top of this card stack
+//     */
+//    fun putOnTop(card: SchwimmenCard) {
+//        cards.addFirst(card)
+//    }
 
     fun extractThreeCards(): MutableList<SchwimmenCard> {
         require ( 3 in 1..cards.size) { "can't draw 3 cards from $cards" }

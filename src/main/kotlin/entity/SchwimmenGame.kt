@@ -1,7 +1,9 @@
 package entity
 
-class SchwimmenGame(var passCounter: Int=0, val gameLoop: Boolean,var gameActive:Boolean,var deckCards: Deck, var Players:ArrayDeque<SchwimmenPlayer>)
+class SchwimmenGame(var passCounter: Int=0, val gameLoop: Boolean,var gameActive:Boolean,var deckCards: Deck)
 {
+
+   var players:MutableList<SchwimmenPlayer> = mutableListOf()
 
    var currentPlayer:SchwimmenPlayer?= null
    get() = field
@@ -12,7 +14,7 @@ class SchwimmenGame(var passCounter: Int=0, val gameLoop: Boolean,var gameActive
 
    init{
       tableCards=deckCards.extractThreeCards();
-      for(player in Players){
+      for(player in players){
          player.dealtHandCards = deckCards.extractThreeCards()
       }
    }
@@ -24,6 +26,17 @@ class SchwimmenGame(var passCounter: Int=0, val gameLoop: Boolean,var gameActive
    fun endGame(){
       gameActive=false
    }
+
+   fun goToNextTurn(){
+      val indexOfCurrentPlayer=players.indexOf(currentPlayer)
+      currentPlayer=players[(indexOfCurrentPlayer+1)%players.size]
+   }
+
+   fun addPlayer(player:SchwimmenPlayer){
+      players.add(player)
+   }
+
+
 
 
 }

@@ -21,6 +21,8 @@ class DeckTest {
         return deck
     }
 
+
+
     private val generatedCards = createCards()
 
     var generatedDeck = Deck(generatedCards)

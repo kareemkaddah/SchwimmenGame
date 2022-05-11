@@ -1,8 +1,7 @@
-
-
-
 interface Refreshable {
 
-     fun refreshAfterTurn()
+    fun refreshAfterTurn()
+
+    fun refreshAfterGameEnd()
 
 }
