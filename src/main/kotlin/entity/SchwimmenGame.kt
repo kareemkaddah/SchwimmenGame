@@ -10,14 +10,14 @@ class SchwimmenGame(var passCounter: Int=0, val gameLoop: Boolean,var gameActive
    set(value) {currentPlayer = value
    }
 
-    var tableCards:MutableList<SchwimmenCard>;
+    lateinit var tableCards:MutableList<SchwimmenCard>;
 
-   init{
-      tableCards=deckCards.extractThreeCards();
-      for(player in players){
-         player.dealtHandCards = deckCards.extractThreeCards()
-      }
-   }
+//   init{
+//      tableCards=deckCards.extractThreeCards();
+//      for(player in players){
+//         player.dealtHandCards = deckCards.extractThreeCards()
+//      }
+//   }
 
    fun incrementPassCounter(){
       passCounter++

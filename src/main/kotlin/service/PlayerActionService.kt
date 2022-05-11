@@ -6,7 +6,7 @@ import entity.*
 class PlayerActionService(private val rootService: RootService) : AbstractRefreshingService() {
 
     var currentGame = rootService.currentGame
-    val currentPlayer = currentGame?.currentPlayer
+    var currentPlayer = currentGame?.currentPlayer
 
 
     fun knock() {
@@ -18,27 +18,27 @@ class PlayerActionService(private val rootService: RootService) : AbstractRefres
     }
 
     fun changeOneCard(handCard: SchwimmenCard, tableCard: SchwimmenCard) {
-        checkNotNull(currentGame)
+
         var playerCard = currentPlayer?.handCards
 
         val indexOfChosenCard = playerCard?.indexOf(handCard)
-        val indexOfTableCard = currentGame?.tableCards!!.indexOf(tableCard)
+        val indexOfTableCard = rootService.currentGame?.tableCards!!.indexOf(tableCard)
 
         if (indexOfChosenCard != null) {
             playerCard?.set(indexOfChosenCard, tableCard)
         };
-        currentGame?.tableCards!![indexOfTableCard] = handCard
+        rootService.currentGame?.tableCards!![indexOfTableCard] = handCard
         onAllRefreshables { refreshAfterTurn() }
 
     }
 
 
     fun changeAllCards() {
-        checkNotNull(currentGame)
-        val tmp = currentPlayer?.dealtHandCards
-        currentPlayer?.dealtHandCards = currentGame!!.tableCards
+
+        val tmp = currentPlayer?.handCards
+        currentPlayer?.handCards = rootService.currentGame!!.tableCards
         if (tmp != null) {
-            currentGame!!.tableCards = tmp
+            rootService.currentGame!!.tableCards = tmp
         }
         onAllRefreshables { refreshAfterTurn() }
 

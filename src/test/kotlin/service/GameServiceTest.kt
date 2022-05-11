@@ -15,23 +15,26 @@ class GameServiceTest {
     private val playerThree = SchwimmenPlayer("PlayerThree", 2)
     private val playerFour = SchwimmenPlayer("PlayerFour", 3)
 
+
     private fun createDeck(): MutableList<SchwimmenCard> {
         val deck = mutableListOf<SchwimmenCard>()
-        for (index in 0..31) {
+        val suits:MutableList<CardSuit> = mutableListOf(CardSuit.SPADES,CardSuit.HEARTS,CardSuit.CLUBS,CardSuit.DIAMONDS)
+        val values:MutableList<CardValue> = mutableListOf(CardValue.SEVEN,CardValue.EIGHT,CardValue.NINE,CardValue.TEN,CardValue.JACK
+        ,CardValue.QUEEN,CardValue.ACE,CardValue.KING)
 
-            deck.add(
-                SchwimmenCard(
-                    CardSuit.values()[index / 8],
-                    CardValue.values()[(index % 8 + 5)]
-                )
-            )
+        for(suit in suits){
+            for(value in values){
+                deck.add(SchwimmenCard(suit,value))
+            }
         }
-        return deck
+        return deck;
+
     }
 
 
     private val gameList = mutableListOf<SchwimmenPlayer>(playerOne, playerTwo, playerThree, playerFour)
-    private val deck=createDeck()
+
+val deck=createDeck()
 
 
 
@@ -39,11 +42,18 @@ class GameServiceTest {
     fun startGame() {
         val rs=RootService()
         rs.gameService.startGame(gameList,deck)
-        val currentGame=rs.currentGame
-        checkNotNull(currentGame)
-        assertEquals(4,currentGame.players.size)
-//        assertEquals(17,rs.gameService.t)
+        assertEquals(4, rs.currentGame!!.players.size)
+        //checking that 17 cards are in deck remaining
+        assertEquals(17, rs.currentGame!!.deckCards.size)
+       //checking that table has 3 cards
+        assertEquals(3,rs.currentGame!!.tableCards.size)
 
-
+        //checking  that each player has three card
+        assertEquals(3,rs.currentGame!!.players[0].handCards.size)
+        assertEquals(3,rs.currentGame!!.players[1].handCards.size)
+        assertEquals(3,rs.currentGame!!.players[2].handCards.size)
+        assertEquals(3,rs.currentGame!!.players[3].handCards.size)
     }
+
+
 }

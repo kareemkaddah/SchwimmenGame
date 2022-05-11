@@ -79,8 +79,11 @@ class SchwimmenPlayer (private val playerName: String,private val position:Int, 
         hasKnocked=true
     }
 
+//TODO delete
 
-    var dealtHandCards:MutableList<SchwimmenCard> = mutableListOf<SchwimmenCard>()
-    get() = field
-    set(value) {dealtHandCards= value}
+//    var dealtHandCards:MutableList<SchwimmenCard> = mutableListOf<SchwimmenCard>()
+//    get() = field
+//    set(value) {dealtHandCards= value}
+
+
 }

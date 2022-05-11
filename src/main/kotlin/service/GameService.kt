@@ -6,12 +6,9 @@ import entity.*
 
 class GameService(private val rootService: RootService) : AbstractRefreshingService() {
 
-
-    private val currentGame = rootService.currentGame
-
     fun endGame() {
 
-        val listOfPlayers = currentGame?.players
+        val listOfPlayers = rootService.currentGame?.players
         if (listOfPlayers != null) {
             for (player in listOfPlayers) {
                 player.checkHandScore();
@@ -23,11 +20,13 @@ class GameService(private val rootService: RootService) : AbstractRefreshingServ
 
 
     fun startGame(players: MutableList<SchwimmenPlayer>, deckCards: MutableList<SchwimmenCard>) {
+
+        val game=SchwimmenGame(0,true,true,Deck(deckCards))
+        rootService.currentGame=game
         initializePlayers(players)
-        currentGame?.deckCards = Deck(deckCards)
-        val gameDeck= currentGame?.deckCards
-        val gamePlayers= currentGame?.players
-        //giving every player three cards
+        val gameDeck= rootService.currentGame?.deckCards
+        val gamePlayers= rootService.currentGame?.players
+//        giving every player three cards
         if (gamePlayers != null) {
             for(player in gamePlayers){
                 if (gameDeck != null) {
@@ -39,14 +38,14 @@ class GameService(private val rootService: RootService) : AbstractRefreshingServ
         //assigning three cards to the table
 
         if (gameDeck != null) {
-            currentGame?.tableCards =gameDeck.extractThreeCards()
+            rootService.currentGame?.tableCards =gameDeck.extractThreeCards()
         }
 
     }
 
     //TODO check if correct
     fun checkEndGame(): Boolean {
-        return !currentGame?.gameActive!!
+        return !rootService.currentGame?.gameActive!!
     }
 
 
@@ -57,12 +56,15 @@ class GameService(private val rootService: RootService) : AbstractRefreshingServ
         }
 
         for (player in players) {
-            currentGame?.addPlayer(player)
+            rootService.currentGame?.addPlayer(player)
         }
+        //assigning the current player the first player
+
+        rootService.playerActionService.currentPlayer=players[0]
 
     }
 
     fun getPlayersSize(): Int? {
-        return currentGame?.players?.size
+        return rootService.currentGame?.players?.size
     }
 }
