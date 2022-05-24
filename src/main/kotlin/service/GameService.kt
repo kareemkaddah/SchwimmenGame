@@ -41,6 +41,8 @@ class GameService(private val rootService: RootService) : AbstractRefreshingServ
             rootService.currentGame?.tableCards =gameDeck.extractThreeCards()
         }
 
+        onAllRefreshables { refreshAfterGameStart() }
+
     }
 
     //TODO check if correct

@@ -9,8 +9,28 @@ package entity
  */
 class SchwimmenPlayer (private val playerName: String,private val position:Int, private var hasKnocked:Boolean=false){
 
-//    TODO check
+//TODO check
     public lateinit var handCards :MutableList<SchwimmenCard>
+
+
+    //TODO Ęmad change this
+//    var chosenHandIndex:Int = 10
+//    var chosenTableIndex:Int=10
+//
+//
+//    fun setHandIndex(handCard: SchwimmenCard):Unit{
+//        val indexOfHandCard=handCards.indexOf(handCard)
+//        chosenHandIndex=indexOfHandCard;
+//    }
+//
+//    fun setTableIndex(tableCard: SchwimmenCard):Unit{
+//        val indexOfHandCard=handCards.indexOf(tableCard)
+//        chosenHandIndex=indexOfHandCard;
+//    }
+
+
+
+
 
     fun checkHandScore(): Double {
         val clubsGroup = mutableListOf<SchwimmenCard>()
