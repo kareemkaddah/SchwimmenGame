@@ -35,6 +35,9 @@ class GameService(private val rootService: RootService) : AbstractRefreshingServ
             }
         }
 
+        //setting up the first player to be the current player
+        game.currentPlayer=players[0]
+
         //assigning three cards to the table
 
         if (gameDeck != null) {
@@ -62,7 +65,7 @@ class GameService(private val rootService: RootService) : AbstractRefreshingServ
         }
         //assigning the current player the first player
 
-        rootService.playerActionService.currentPlayer=players[0]
+        rootService.currentGame?.currentPlayer =players[0]
 
     }
 

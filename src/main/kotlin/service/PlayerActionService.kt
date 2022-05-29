@@ -5,21 +5,19 @@ import entity.*
 
 class PlayerActionService(private val rootService: RootService) : AbstractRefreshingService() {
 
-    var currentGame = rootService.currentGame
-    var currentPlayer = currentGame?.currentPlayer
 
 
     fun knock() {
         val game = rootService.currentGame
         checkNotNull(game)
-        currentPlayer?.didKnock()
-
-
+        rootService.currentGame?.currentPlayer?.didKnock()
+        nextTurn()
+        onAllRefreshables { refreshAfterTurn() }
     }
 
     fun changeOneCard(handCard: SchwimmenCard, tableCard: SchwimmenCard) {
 
-        var playerCard = currentPlayer?.handCards
+        var playerCard = rootService.currentGame?.currentPlayer?.handCards
 
         val indexOfChosenCard = playerCard?.indexOf(handCard)
         val indexOfTableCard = rootService.currentGame?.tableCards!!.indexOf(tableCard)
@@ -28,6 +26,7 @@ class PlayerActionService(private val rootService: RootService) : AbstractRefres
             playerCard?.set(indexOfChosenCard, tableCard)
         };
         rootService.currentGame?.tableCards!![indexOfTableCard] = handCard
+        nextTurn()
         onAllRefreshables { refreshAfterTurn() }
 
     }
@@ -35,47 +34,71 @@ class PlayerActionService(private val rootService: RootService) : AbstractRefres
 
     fun changeAllCards() {
 
-        val tmp = currentPlayer?.handCards
-        currentPlayer?.handCards = rootService.currentGame!!.tableCards
+        val tmp = rootService.currentGame?.currentPlayer?.handCards
+        rootService.currentGame?.currentPlayer?.handCards = rootService.currentGame!!.tableCards
         if (tmp != null) {
             rootService.currentGame!!.tableCards = tmp
         }
+        nextTurn()
         onAllRefreshables { refreshAfterTurn() }
 
     }
 
 
     fun pass() {
-        checkNotNull(currentGame)
-        currentGame!!.passCounter += 1;
+
+        rootService.currentGame!!.passCounter += 1;
+        nextTurn()
         onAllRefreshables { refreshAfterTurn() }
     }
 
-    fun turn(t: Turn) {
-        val playersSize = currentGame?.players?.size
-        if (!currentGame?.gameActive!!) return;
-        if(currentGame!!.deckCards.size<3){
-            currentGame?.gameActive=false;
+
+    fun nextTurn(){
+        //TODO endgame here
+        //game should end here
+        if(rootService.currentGame!!.deckCards.size<3){
+            rootService.currentGame?.gameActive=false;
             return;
         }
-        if (currentPlayer?.hasKnocked() == true) {
-            currentGame!!.endGame()
+        //if all player press pass renew table cards
+        if (rootService.currentGame!!.passCounter== rootService.currentGame!!.players.size){
+            //todo renew table cards
+        }
+        //TODO change to check before next player starts
+        if (rootService.currentGame?.currentPlayer?.hasKnocked() == true) {
+            rootService.currentGame!!.endGame()
             return;
 
         }
-        when (t) {
+        rootService.currentGame!!.goToNextTurn()
+        onAllRefreshables { refreshAfterTurn() }
 
-            Turn.CHANGE_ALL -> changeAllCards();
-            Turn.KNOCK -> knock();
-            Turn.PASS -> pass();
-            // TODO figure out how to pass the parameters
-//            Turn.CHANGE_ONE ->
-
-            else -> return;
-        }
-
-        currentGame!!.goToNextTurn()
     }
+
+//    fun turn(t: Turn) {
+//        val playersSize = currentGame?.players?.size
+//        if (!currentGame?.gameActive!!) return;
+//        if(currentGame!!.deckCards.size<3){
+//            currentGame?.gameActive=false;
+//            return;
+//        }
+//        if (currentPlayer?.hasKnocked() == true) {
+//            currentGame!!.endGame()
+//            return;
+//
+//        }
+//        when (t) {
+//            Turn.CHANGE_ALL -> changeAllCards();
+//            Turn.KNOCK -> knock();
+//            Turn.PASS -> pass();
+//            // TODO figure out how to pass the parameters
+////            Turn.CHANGE_ONE ->
+//
+//            else -> return;
+//        }
+//
+//        currentGame!!.goToNextTurn()
+//    }
 
 
 }

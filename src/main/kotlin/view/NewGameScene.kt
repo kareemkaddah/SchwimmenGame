@@ -124,35 +124,42 @@ class NewGameScene(private val rootService: RootService) : MenuScene(400, 1080),
 
     fun generateplayers(playersName:MutableList<String>)  :MutableList<SchwimmenPlayer>  {
         val players= mutableListOf<SchwimmenPlayer>()
-    for(index in 0..playersName.size - 1){
+        for(index in 0..playersName.size - 1){
 
-        players.add(SchwimmenPlayer(playersName[index],index))
+            players.add(SchwimmenPlayer(playersName[index],index))
 
-    }
+        }
         return players
     }
 
     private fun createCards(): ArrayDeque<SchwimmenCard> {
         val deck = ArrayDeque<SchwimmenCard>();
+        val cardsList= mutableListOf<SchwimmenCard>()
+
+
+
         for (index in 0..31) {
 
-            deck.addFirst(
+            cardsList.add(
                 SchwimmenCard(
                     CardSuit.values()[index / 8],
                     CardValue.values()[(index % 8 + 5)]
                 )
             )
+
+
+        }
+
+        cardsList.shuffle()
+
+        for(card in cardsList){
+            deck.addFirst((card))
         }
         return deck
     }
 
-    override fun refreshAfterTurn() {
-        TODO("Not yet implemented")
-    }
 
-    override fun refreshAfterGameEnd() {
-        TODO("Not yet implemented")
-    }
 
 
 }
+

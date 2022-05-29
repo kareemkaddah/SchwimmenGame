@@ -9,8 +9,20 @@ class SopraApplication : BoardGameApplication("SoPra Game") , Refreshable {
 
     private val rootService=RootService()
 
-    private lateinit var gameScene:GameScene;
+    private var gameScene:GameScene;
 
+
+
+    // This menu scene is shown after each finished game (i.e. no more cards to draw)
+
+    private val scoreScene = ScoreScene(rootService).apply {
+        newGameButton.onMouseClicked = {
+            this@SopraApplication.showMenuScene(newGameMenuScene)
+        }
+        quitButton.onMouseClicked = {
+            exit()
+        }
+    }
 
     private val newGameMenuScene = NewGameScene(rootService).apply {
         quitButton.onMouseClicked = {
@@ -18,20 +30,21 @@ class SopraApplication : BoardGameApplication("SoPra Game") , Refreshable {
         }
     }
 
-   init {
+    init {
 
-       gameScene= GameScene(rootService)
+        gameScene= GameScene(rootService)
 
-       this.showGameScene(gameScene)
-       this.showMenuScene(newGameMenuScene, 0)
+        this.showGameScene(gameScene)
+        this.showMenuScene(newGameMenuScene, 0)
 
 
-       //TODO add score scene to refresh
-      rootService.addRefreshables(
-           this,
-           gameScene,
-           newGameMenuScene
-       )
+        //TODO add score scene to refresh
+        rootService.addRefreshables(
+            this,
+            gameScene,
+            scoreScene,
+            newGameMenuScene
+        )
 
     }
 
@@ -40,14 +53,9 @@ class SopraApplication : BoardGameApplication("SoPra Game") , Refreshable {
     override fun refreshAfterGameStart() {
         this.hideMenuScene()
     }
-
-    override fun refreshAfterTurn() {
-        TODO("Not yet implemented")
-    }
-
     override fun refreshAfterGameEnd() {
-        TODO("Not yet implemented")
+        this.showMenuScene(scoreScene)
     }
+
 
 }
-

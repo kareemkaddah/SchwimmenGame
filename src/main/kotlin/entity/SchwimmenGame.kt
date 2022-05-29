@@ -6,18 +6,10 @@ class SchwimmenGame(var passCounter: Int=0, val gameLoop: Boolean,var gameActive
    var players:MutableList<SchwimmenPlayer> = mutableListOf()
 
    var currentPlayer:SchwimmenPlayer?= null
-   get() = field
-   set(value) {currentPlayer = value
-   }
 
-    lateinit var tableCards:MutableList<SchwimmenCard>;
 
-//   init{
-//      tableCards=deckCards.extractThreeCards();
-//      for(player in players){
-//         player.dealtHandCards = deckCards.extractThreeCards()
-//      }
-//   }
+   lateinit var tableCards:MutableList<SchwimmenCard>;
+
 
    fun incrementPassCounter(){
       passCounter++
@@ -40,6 +32,3 @@ class SchwimmenGame(var passCounter: Int=0, val gameLoop: Boolean,var gameActive
 
 
 }
-
-
-
