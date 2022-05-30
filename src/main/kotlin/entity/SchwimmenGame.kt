@@ -1,6 +1,6 @@
 package entity
 
-class SchwimmenGame(var passCounter: Int=0, val gameLoop: Boolean,var gameActive:Boolean,var deckCards: Deck)
+class SchwimmenGame( var passCounter: Int=0, val gameLoop: Boolean,var gameActive:Boolean,var deckCards: Deck)
 {
 
    var players:MutableList<SchwimmenPlayer> = mutableListOf()
@@ -9,6 +9,13 @@ class SchwimmenGame(var passCounter: Int=0, val gameLoop: Boolean,var gameActive
 
 
    lateinit var tableCards:MutableList<SchwimmenCard>;
+
+
+   fun resetPassCounter(){
+      passCounter=0;
+   }
+
+
 
 
    fun incrementPassCounter(){
@@ -32,3 +39,5 @@ class SchwimmenGame(var passCounter: Int=0, val gameLoop: Boolean,var gameActive
 
 
 }
+
+

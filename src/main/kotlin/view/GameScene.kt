@@ -26,6 +26,8 @@ class GameScene(private val rootService: RootService): BoardGameScene(1920, 1080
 
     private val activePlayer = Label(width = 300, height = 35, posX = 100, posY = 100)
 
+    private val deckCardsAmount=Label(width = 300, height = 35, posX = 100, posY = 200)
+
 
     private val cardMap: BidirectionalMap<SchwimmenCard, CardView> = BidirectionalMap()
 
@@ -196,6 +198,7 @@ class GameScene(private val rootService: RootService): BoardGameScene(1920, 1080
             passButton,
             knockButton,
             activePlayer,
+            deckCardsAmount,
             swapThreeCards,
             exitButton,
             swapCardButton11,
@@ -235,13 +238,11 @@ class GameScene(private val rootService: RootService): BoardGameScene(1920, 1080
         //setting up the active player name
 
         activePlayer.text = (game.currentPlayer!!.getName())
+
+        deckCardsAmount.text="remaining deck cards: ${game.deckCards.size}"
     }
 
 
-
-    override fun refreshAfterGameEnd() {
-        TODO("Not yet implemented")
-    }
 
     override fun refreshAfterGameStart() {
         val game=rootService.currentGame
@@ -272,6 +273,8 @@ class GameScene(private val rootService: RootService): BoardGameScene(1920, 1080
 
         activePlayer.text = (game.currentPlayer!!.getName())
 
+        deckCardsAmount.text="remaining deck cards: ${game.deckCards.size}"
+
     }
 
 
@@ -301,5 +304,7 @@ class GameScene(private val rootService: RootService): BoardGameScene(1920, 1080
     }
 
 }
+
+
 
 

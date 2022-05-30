@@ -56,7 +56,7 @@ class ScoreScene(private val rootService: RootService): MenuScene(400, 1080), Re
         }
 
         if (names.size >= 1) {
-            p1Score.text = "${names[0]}scored: ${scores[0]} points"
+            p1Score.text = "${names[0]} scored: ${scores[0]} points"
         }
 
         if (names.size >= 2) {
@@ -71,3 +71,5 @@ class ScoreScene(private val rootService: RootService): MenuScene(400, 1080), Re
 
     }
 }
+
+

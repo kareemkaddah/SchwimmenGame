@@ -2,7 +2,7 @@ package entity
 
 import kotlin.random.Random
 
-class Deck( pCards:MutableList<SchwimmenCard>,private val random: Random = Random ){
+class Deck(  pCards:MutableList<SchwimmenCard>,private val random: Random = Random ){
     val cards:MutableList<SchwimmenCard>
 
     init {
@@ -23,27 +23,14 @@ class Deck( pCards:MutableList<SchwimmenCard>,private val random: Random = Rando
     val isEmpty: Boolean get() = cards.isEmpty()
 
 
-//    TODO delete
-//    /**
-//     * Shuffles the cards in this stack
-//     */
-//    fun shuffle() {
-//        cards.shuffle(random)
-//    }
-//    fun putOnTop(cards: List<SchwimmenCard>) {
-//        cards.forEach(this.cards::addFirst)
-//    }
-//
-//    /**
-//     * puts the given card on top of this card stack
-//     */
-//    fun putOnTop(card: SchwimmenCard) {
-//        cards.addFirst(card)
-//    }
+
 
     fun extractThreeCards(): MutableList<SchwimmenCard> {
         require ( 3 in 1..cards.size) { "can't draw 3 cards from $cards" }
         return MutableList(3) { cards.removeFirst() }
     }
 
+
+
 }
+

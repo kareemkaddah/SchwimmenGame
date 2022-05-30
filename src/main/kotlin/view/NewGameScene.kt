@@ -30,7 +30,7 @@ class NewGameScene(private val rootService: RootService) : MenuScene(400, 1080),
     private val p1Input: TextField = TextField(
         width = 200, height = 35,
         posX = 150, posY = 125,
-        text = listOf("Homer", "Marge", "Bart", "Lisa", "Maggie").random()
+        text = listOf("Kareem", "Ali", "Ahmad", "Jan", "Florian","Nick").random()
     ).apply {
         onKeyTyped = {
             startButton.isDisabled = this.text.isBlank() || p2Input.text.isBlank()
@@ -48,7 +48,7 @@ class NewGameScene(private val rootService: RootService) : MenuScene(400, 1080),
     private val p2Input: TextField = TextField(
         width = 200, height = 35,
         posX = 150, posY = 170,
-        text = listOf("Fry", "Bender", "Leela", "Amy", "Zoidberg").random()
+        text = listOf("Kareem", "Ali", "Ahmad", "Jan", "Florian","Nick").random()
     ).apply {
         onKeyTyped = {
             startButton.isDisabled = p1Input.text.isBlank() || this.text.isBlank()
@@ -66,7 +66,7 @@ class NewGameScene(private val rootService: RootService) : MenuScene(400, 1080),
     private val p3Input: TextField = TextField(
         width = 200, height = 35,
         posX = 150, posY = 215,
-        text = listOf("Fry", "Bender", "Leela", "Amy", "Zoidberg").random()
+        text = listOf("Kareem", "Ali", "Ahmad", "Jan", "Florian","Nick").random()
     )
 
     // type inference fails here, so explicit  ": TextField" is required
@@ -74,7 +74,7 @@ class NewGameScene(private val rootService: RootService) : MenuScene(400, 1080),
     private val p4Input: TextField = TextField(
         width = 200, height = 35,
         posX = 150, posY = 260,
-        text = listOf("Fry", "Bender", "Leela", "Amy", "Zoidberg").random()
+        text = listOf("Kareem", "Ali", "Ahmad", "Jan", "Florian","Nick").random()
     )
 
     private val p4Label = Label(
