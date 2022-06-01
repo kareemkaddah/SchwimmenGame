@@ -4,6 +4,11 @@ import AbstractRefreshingService
 
 import entity.*
 
+/**
+ * @param endGame we check the handScore and we end the game
+ * @param startGame startet eine neue spiel
+ *
+ */
 class GameService(private val rootService: RootService) : AbstractRefreshingService() {
 
     fun endGame() {
@@ -14,13 +19,13 @@ class GameService(private val rootService: RootService) : AbstractRefreshingServ
                 player.checkHandScore();
             }
         }
-        //TODO sort players
+
         onAllRefreshables { refreshAfterGameEnd() }
     }
 
 
     fun startGame(players: MutableList<SchwimmenPlayer>, deckCards: MutableList<SchwimmenCard>) {
-
+    //we reset the passCounter and change teh gameMode to Active and we initialize the Players and give every player 3 cards from the deck
         val game=SchwimmenGame(0,true,true,Deck(deckCards))
         rootService.currentGame=game
         initializePlayers(players)
@@ -48,12 +53,12 @@ class GameService(private val rootService: RootService) : AbstractRefreshingServ
 
     }
 
-    //TODO check if correct
+
     fun checkEndGame(): Boolean {
         return !rootService.currentGame?.gameActive!!
     }
 
-
+    //we initializePlayers and check if there's between 2 and 4 Players
     private fun initializePlayers(players: MutableList<SchwimmenPlayer>) {
         if (players.size < 2 || players.size > 4) {
             println("players number is not valid")
@@ -68,7 +73,7 @@ class GameService(private val rootService: RootService) : AbstractRefreshingServ
         rootService.currentGame?.currentPlayer =players[0]
 
     }
-
+    //returns the amount of players in the game
     fun getPlayersSize(): Int? {
         return rootService.currentGame?.players?.size
     }

@@ -10,27 +10,32 @@ import tools.aqua.bgw.core.MenuScene
 import tools.aqua.bgw.util.Font
 import tools.aqua.bgw.visual.ColorVisual
 
-class NewGameScene(private val rootService: RootService) : MenuScene(400, 1080), Refreshable{
+class NewGameScene(private val rootService: RootService) : MenuScene(1920, 1080), Refreshable{
 
 
     private val headlineLabel = Label(
-        width = 300, height = 50, posX = 50, posY = 50,
+        width = 500, height = 100, posX = 700, posY = 50,
+
         text = "Start New Game",
-        font = Font(size = 22)
+        font = Font(size = 44)
+    )
+    private val playerNamesList=listOf(
+        "Kareem", "Ali", "Ahmad", "Jan", "Florian","Nick","Christos","Ibrahim" ,"Nils"," Lasse"
     )
     private val p1Label = Label(
-        width = 100, height = 35,
-        posX = 50, posY = 125,
+        width = 100, height = 35, posX = 760, posY = 225,
+        font = Font(size = 24),
         text = "Player 1:"
     )
+
 
 
     // type inference fails here, so explicit  ": TextField" is required
     // see https://discuss.kotlinlang.org/t/unexpected-type-checking-recursive-problem/6203/14
     private val p1Input: TextField = TextField(
-        width = 200, height = 35,
-        posX = 150, posY = 125,
-        text = listOf("Kareem", "Ali", "Ahmad", "Jan", "Florian","Nick").random()
+        width = 200, height = 35, posX = 860, posY = 225,
+        font = Font(size = 24),
+        text = playerNamesList.random()
     ).apply {
         onKeyTyped = {
             startButton.isDisabled = this.text.isBlank() || p2Input.text.isBlank()
@@ -38,65 +43,71 @@ class NewGameScene(private val rootService: RootService) : MenuScene(400, 1080),
     }
 
     private val p2Label = Label(
-        width = 100, height = 35,
-        posX = 50, posY = 170,
+        width = 100, height = 35, posX = 760, posY = 270,
+        font = Font(size = 24),
         text = "Player 2:"
     )
 
     // type inference fails here, so explicit  ": TextField" is required
     // see https://discuss.kotlinlang.org/t/unexpected-type-checking-recursive-problem/6203/14
     private val p2Input: TextField = TextField(
-        width = 200, height = 35,
-        posX = 150, posY = 170,
-        text = listOf("Kareem", "Ali", "Ahmad", "Jan", "Florian","Nick").random()
+        width = 200, height = 35, posX = 860, posY = 270,
+        font = Font(size = 24),
+        text = playerNamesList.random()
     ).apply {
         onKeyTyped = {
             startButton.isDisabled = p1Input.text.isBlank() || this.text.isBlank()
         }
     }
 
+
+
     private val p3Label = Label(
-        width = 100, height = 35,
-        posX = 50, posY = 215,
+        width = 100, height = 35, posX = 760, posY = 315,
+        font = Font(size = 24),
         text = "Player 3:"
     )
 
     // type inference fails here, so explicit  ": TextField" is required
     // see https://discuss.kotlinlang.org/t/unexpected-type-checking-recursive-problem/6203/14
     private val p3Input: TextField = TextField(
-        width = 200, height = 35,
-        posX = 150, posY = 215,
-        text = listOf("Kareem", "Ali", "Ahmad", "Jan", "Florian","Nick").random()
+        width = 200, height = 35, posX = 860, posY = 315,
+        font = Font(size = 24),
+        text = playerNamesList.random()
+    )
+
+    private val p4Label = Label(
+        width = 100, height = 35, posX = 760, posY = 360,
+        font = Font(size = 24),
+        text = "Player 4:"
     )
 
     // type inference fails here, so explicit  ": TextField" is required
     // see https://discuss.kotlinlang.org/t/unexpected-type-checking-recursive-problem/6203/14
     private val p4Input: TextField = TextField(
-        width = 200, height = 35,
-        posX = 150, posY = 260,
-        text = listOf("Kareem", "Ali", "Ahmad", "Jan", "Florian","Nick").random()
+        width = 200, height = 35, posX = 860, posY = 360,
+        font = Font(size = 24),
+        text = playerNamesList.random()
     )
 
-    private val p4Label = Label(
-        width = 100, height = 35,
-        posX = 50, posY = 260,
-        text = "Player 4:"
-    )
+
 
     val quitButton = Button(
-        width = 140, height = 35,
-        posX = 50, posY = 330,
+        width = 140, height = 70, posX = 810, posY = 430,
+        font = Font(size = 24),
         text = "Quit"
     ).apply {
         visual = ColorVisual(221, 136, 136)
     }
 
     private val startButton = Button(
-        width = 140, height = 35,
-        posX = 210, posY = 330,
-        text = "Start"
+        width = 140, height = 70, posX = 1000, posY = 430,
+        font = Font(size = 24),
+        text = "Start",
+
     ).apply {
         visual = ColorVisual(136, 221, 136)
+
         onMouseClicked = {
             rootService.gameService.startGame(
                 generateplayers(mutableListOf(p1Input.text.trim(),
@@ -110,12 +121,15 @@ class NewGameScene(private val rootService: RootService) : MenuScene(400, 1080),
     }
 
     init {
-        opacity = .5
+        background = ColorVisual(0, 219, 201)
+        opacity = 0.2
         addComponents(
             headlineLabel,
             p1Label, p1Input,
             p2Label, p2Input,
+
             p3Label, p3Input,
+
             p4Label, p4Input,
             startButton, quitButton
         )

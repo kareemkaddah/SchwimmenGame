@@ -5,7 +5,7 @@ package entity
  * @param position gibt das Positon der spieler
  * @param hasKnocked zeigt ob der spieler geklopft hat oder nicht
  * @param DealtHandCards gibt die hand karten in einem array
- *
+ *@param checkHandScore calculates the score for the hand cards
  */
 class SchwimmenPlayer (private val playerName: String,private val position:Int, private var hasKnocked:Boolean=false){
 
@@ -17,7 +17,7 @@ class SchwimmenPlayer (private val playerName: String,private val position:Int, 
         return  this.playerName
     }
 
-    //TODO kareem change this
+    //TODO  change this
 //    var chosenHandIndex:Int = 10
 //    var chosenTableIndex:Int=10
 //
@@ -35,7 +35,7 @@ class SchwimmenPlayer (private val playerName: String,private val position:Int, 
 
 
 
-
+    //
     fun checkHandScore(): Double {
         val clubsGroup = mutableListOf<SchwimmenCard>()
         val spadesGroup = mutableListOf<SchwimmenCard>()
@@ -50,6 +50,7 @@ class SchwimmenPlayer (private val playerName: String,private val position:Int, 
         var tmp = 0.0
 
         for (card in handCards) {
+            //we check here which  cardSuit we have and we put it in the appropriate List
             if (card.getSuit() == CardSuit.CLUBS) {
                 clubsGroup.add(card)
             }
@@ -63,7 +64,7 @@ class SchwimmenPlayer (private val playerName: String,private val position:Int, 
                 diamondsGroup.add(card)
             }
         }
-
+    //we calculate the values in every list to see which one have the max amount in it
         for (card in clubsGroup) {
             clubsPoints += card.getValue()
         }
@@ -76,7 +77,7 @@ class SchwimmenPlayer (private val playerName: String,private val position:Int, 
         for (card in diamondsGroup) {
             diamondsPoints += card.getValue()
         }
-
+    //after we compare the results of the lists we put the maximum amount in score
         val score = maxOf(clubsPoints, heartsPoints, spadesPoints, diamondsPoints)
 
         //Three cards of the same value will return an 30.5
@@ -85,7 +86,7 @@ class SchwimmenPlayer (private val playerName: String,private val position:Int, 
         ) {
             tmp = 30.5
         }
-
+    //we check if the score that we calculated is bigger than tmp or not and we give the bigger one back
         return if (tmp > score) {
             tmp
         } else {
@@ -102,12 +103,5 @@ class SchwimmenPlayer (private val playerName: String,private val position:Int, 
     fun didKnock(){
         hasKnocked=true
     }
-
-//TODO delete
-
-//    var dealtHandCards:MutableList<SchwimmenCard> = mutableListOf<SchwimmenCard>()
-//    get() = field
-//    set(value) {dealtHandCards= value}
-
 
 }

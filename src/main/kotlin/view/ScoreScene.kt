@@ -9,36 +9,43 @@ import tools.aqua.bgw.util.Font
 import tools.aqua.bgw.visual.ColorVisual
 import java.awt.Color
 
-class ScoreScene(private val rootService: RootService): MenuScene(400, 1080), Refreshable {
+class ScoreScene(private val rootService: RootService): MenuScene(1920, 1080), Refreshable {
 
     private val headlineLabel = Label(
-        width = 300, height = 50, posX = 50, posY = 50,
+        width = 500, height = 100, posX = 700, posY = 50,
         text = "Scores",
-        font = Font(size = 22)
+        font = Font(size = 44)
     )
 
-    private val p1Score = Label(width = 300, height = 35, posX = 50, posY = 125)
+    private val p1Score = Label(width = 400, height = 35, posX = 800, posY = 225 ,font = Font(size = 28))
 
-    private val p2Score = Label(width = 300, height = 35, posX = 50, posY = 160)
+    private val p2Score = Label(width = 400, height = 35, posX = 800, posY = 270 ,font = Font(size = 28))
 
-    private val p3Score = Label(width = 300, height = 35, posX = 50, posY = 195)
+    private val p3Score = Label(width = 400, height = 35, posX = 800, posY = 315 ,font = Font(size = 28))
 
-    private val p4Score = Label(width = 300, height = 35, posX = 50, posY = 230)
+    private val p4Score = Label(width = 400, height = 35, posX = 800, posY = 360 ,font = Font(size = 28))
 
-    private val gameResult = Label(width = 300, height = 35, posX = 50, posY = 195).apply {
-    }
+    private val gameWinner = Label(width = 700, height = 35, posX =650, posY = 150,font = Font(size = 33))
 
-    val quitButton = Button(width = 140, height = 35, posX = 50, posY = 265, text = "Quit").apply {
+
+
+    val quitButton = Button(width = 200, height = 70, posX = 760, posY = 430,
+        font = Font(size = 24),
+        text = "Quit"
+    ).apply {
         visual = ColorVisual(Color(221, 136, 136))
     }
 
-    val newGameButton = Button(width = 140, height = 35, posX = 210, posY = 265, text = "New Game").apply {
+    val newGameButton = Button(width = 200, height = 70, posX = 1000, posY = 430,
+        font = Font(size = 24),text= "New Game"
+    ).apply {
         visual = ColorVisual(Color(136, 221, 136))
     }
 
     init {
-        opacity = .5
-        addComponents(headlineLabel, p1Score, p2Score, p3Score, p4Score, gameResult, newGameButton, quitButton)
+        background = ColorVisual(0, 219, 201)
+        opacity = .2
+        addComponents(headlineLabel, p1Score, p2Score, p3Score, p4Score,gameWinner, newGameButton, quitButton)
     }
 
     override fun refreshAfterGameEnd() {
@@ -68,6 +75,23 @@ class ScoreScene(private val rootService: RootService): MenuScene(400, 1080), Re
         if (names.size >= 4) {
             p4Score.text = "${names[3]} scored ${scores[3]} points"
         }
+        val winner=scores.maxOrNull()
+        if(scores[0]==winner){
+            gameWinner.text=" ${names[0]} is the winner with the Score ${scores[0]}"
+        }
+        if(scores[1]==winner){
+            gameWinner.text=" ${names[1]} is the winner with the Score ${scores[1]}"
+        }
+        if(scores[2]==winner){
+            gameWinner.text=" ${names[2]} is the winner with the Score ${scores[2]}"
+        }
+        if(scores[3]==winner){
+            gameWinner.text=" ${names[3]} is the winner with the Score ${scores[3]}"
+        }
+
+
+
+
 
     }
 }

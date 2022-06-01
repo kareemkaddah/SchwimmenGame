@@ -2,9 +2,13 @@ package entity
 
 import kotlin.random.Random
 
+/**@param extractThreeCards takes three cards out from the deck and checks if theres more than 3 cards there
+ *
+ */
 class Deck(  pCards:MutableList<SchwimmenCard>,private val random: Random = Random ){
     val cards:MutableList<SchwimmenCard>
 
+    //generate a 32 cards and put them in cards
     init {
         if(pCards.size==32){
             cards = pCards;
